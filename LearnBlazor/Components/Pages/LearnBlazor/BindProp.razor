@@ -3,7 +3,12 @@
 <h3>Product - Data Binding</h3>
 
 Name : @Product.Name <br/>
-IsActive : @Product.IsActive
+IsActive : @Product.IsActive <br/>
+Price : @Product.Price <br/>
+This Product is : @(Product.IsActive? "Active" : "Inactive") <br/>
+IsActive : <input type="checkbox" @bind="@Product.IsActive"/> <br/>
+Input Price :
+<input type="number" @bind-value="@Product.Price" @bind-value:event="oninput" />
 
 @code {
     Models.Product Product = new()
@@ -11,6 +16,7 @@ IsActive : @Product.IsActive
             Id = 1,
             Name = "Product 1",
             IsActive = true
+            
         };
 
 }
