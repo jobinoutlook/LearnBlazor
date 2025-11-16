@@ -19,7 +19,7 @@
                     }
                 }
                 <br />
-                <input type="button" class="btn bg-danger" value="Delete" />
+                <input type="button" class="btn bg-danger" value="Delete" @onclick="()=>RemoveFromProductList(prod.Id)"/>
             </div>
         }
     </div>
@@ -41,7 +41,14 @@
     }
 
     List<Product> ProductList = new();
-    
+
+    private void RemoveFromProductList(int id)
+    {
+        var objProduct = ProductList.FirstOrDefault(p => p.Id == id);
+        if (objProduct != null) ProductList.Remove(objProduct);
+
+    }
+
     protected override void OnInitialized()
     {
         ProductList.Add(new()
