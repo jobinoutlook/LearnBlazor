@@ -2,14 +2,22 @@
 
 <h3>ParentComponent</h3>
 
-<_ChildComponent Title="This title is passed as a parameter from parent component">
+<_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as a parameter from parent component">
     Some text between the tags from the parent component!!
 </_ChildComponent>
+
+<p>@messageText</p>
 
 <_ChildComponent Title="This title is passed as a parameter from parent component">
     
 </_ChildComponent>
 
 @code {
+    public string messageText = string.Empty;
+
+    private void ShowMessage()
+    {
+        messageText = "Button inside child component was clicked";
+    }
 
 }

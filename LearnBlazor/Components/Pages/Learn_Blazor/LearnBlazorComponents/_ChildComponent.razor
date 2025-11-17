@@ -7,9 +7,10 @@
     @if (ChildContent != null)
     {
         <div class="alert alert-success">
-          CHT = @ChildContent
+          CHT =  @ChildContent
         </div>
     }
+    <button class="btn btn-danger" @onclick="OnButtonClick">Click Me</button>
 </div>
 
 @code {
@@ -18,4 +19,7 @@
 
     [Parameter]
     public RenderFragment ChildContent{ get; set; }
+
+    [Parameter]
+    public EventCallback OnButtonClick{ get; set; }
 }
