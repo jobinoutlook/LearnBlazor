@@ -1,53 +1,44 @@
-﻿@page "/LearnBlazor/DemoProduct"
+﻿@page "/Learn_Blazor/DemoProduct"
 
 
 
 <h2 class="text-primary">Demo Product</h2>
+<p>Favorite Count : @FavoritesCount</p>
 <div class="p-2 mt-2">
     <div class="row">
         @foreach(var prod in ProductList)
         {
-            <div class="col-6 border bg-light">
-                <h4 class="text-secondary">Product - @prod.Id</h4>
-                Name - @prod.Name <br/>
-                Show Properties : <input type="checkbox" @bind=@prod.IsActive  />
-                @if(prod.IsActive)
-                {
-                    @foreach(var prodProp in prod.ProductProperties)
-                    {
-                        <p>@prodProp.Key - @prodProp.Value</p>
-                    }
-                }
-                <br />
-                <input type="button" class="btn bg-danger" value="Delete" @onclick="()=>RemoveFromProductList(prod.Id)"/>
-            </div>
+            <_IndividualProduct Product="@prod" OnFavoriteUpdated="FavoriteCountChange">
+
+            </_IndividualProduct>
         }
     </div>
-    <div class="row pt-4">
+    @* <div class="row pt-4">
         <div>
             Counter : @Count <br />
             <input type="button" class="btn btn-success" style="width:100px;" value="Counter" @onclick="()=>IncrementCount(5)" />
+            
         </div>
 
-    </div>
+    </div> *@
 </div>
 
 @code {
-    int Count { get; set; } = 0;
-
-    private void IncrementCount(int counter)
-    {
-        Count+=counter;
-    }
+    // int Count { get; set; } = 0;
+    public int FavoritesCount { get; set; } = 0;
+    // private void IncrementCount(int counter)
+    // {
+    //     Count+=counter;
+    // }
 
     List<Product> ProductList = new();
 
-    private void RemoveFromProductList(int id)
-    {
-        var objProduct = ProductList.FirstOrDefault(p => p.Id == id);
-        if (objProduct != null) ProductList.Remove(objProduct);
+    // private void RemoveFromProductList(int id)
+    // {
+    //     var objProduct = ProductList.FirstOrDefault(p => p.Id == id);
+    //     if (objProduct != null) ProductList.Remove(objProduct);
 
-    }
+    // }
 
     protected override void OnInitialized()
     {
@@ -78,6 +69,12 @@
                     new Product_Prop {Id = 3,Key = "Color",Value = "White"}
                 }
         });
+    }
+
+    protected void FavoriteCountChange(bool isSelected)
+    {
+        if (isSelected) FavoritesCount++;
+        else FavoritesCount--;
     }
 }
 
