@@ -2,6 +2,7 @@
 @page "/learnRouting/{Param1:int}"
 @page "/learnRouting/{Param1:int}/{Param2}"
 @page "/learnBlazor/learnRouting"
+@page "/learnRouting/learnBlazor"
 @page "/learnRouting/catch-all/{*PageParameters}"
 
 <h3>LearnRouting</h3>
@@ -19,6 +20,10 @@
 {
     <p>Catch-All : @PageParameters</p>
 }
+
+<div class="bg-info" style="height:1000px"></div>
+<h2 id="targetElement">Main Title</h2>
+
 @code {
     [Parameter]
     public int Param1 { get; set; }
