@@ -1,13 +1,22 @@
 ﻿@page "/learnRouting"
-@page "/learnRouting/{Param1:int}"
-@page "/learnRouting/{Param1:int}/{Param2}"
+@* @page "/learnRouting/{Param1:int}"
+@page "/learnRouting/{Param1:int}/{Param2}" *@
+@page "/learnRouting/{Param1}"
+@page "/learnRouting/{Param1}/{Param2}"
 @page "/learnBlazor/learnRouting"
 @page "/learnRouting/learnBlazor"
 @page "/learnRouting/catch-all/{*PageParameters}"
 
+@inject NavigationManager _NavigationManager
+
 <h3>LearnRouting</h3>
 
-@if (Param1 != 0)
+@* @if (Param1 != 0)
+{
+    <p>Param1 : @Param1 </p>
+} *@
+
+@if (Param1 != null)
 {
     <p>Param1 : @Param1 </p>
 }
@@ -21,14 +30,51 @@
     <p>Catch-All : @PageParameters</p>
 }
 
+@* <a href="learnRouting?Param1=Learn&Param2=Blazor" class="btn btn-primary">Navigate to query parameter</a> *@
+<button @onclick="NavigateToQueryParam" class="btn btn-primary">Navigate to Query parameter</button>
+<button class="btn btn-success" @onclick="LoadParameters">Load Parameters</button>
+<br />
+
+
 <div class="bg-info" style="height:1000px"></div>
 <h2 id="targetElement">Main Title</h2>
 
 @code {
+    // [Parameter]
+    // public int Param1 { get; set; }
+    
+    //[SupplyParameterFromQuery(Name = "Param1")]
+    //public string Param1{ get; set; }
+
     [Parameter]
-    public int Param1 { get; set; }
+    public string Param1 { get; set; }
     [Parameter]
     public string Param2 { get; set; }
     [Parameter]
     public string PageParameters { get; set; }
-}
+
+    private void LoadParameters()
+    {
+        var uri = new Uri(_NavigationManager.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+        if (query.Count > 0)
+        {
+            Param1 = query["Param1"];
+            if (query.Count > 1)
+                Param2 = query["Param2"];
+        }
+    }
+
+    private void NavigateToQueryParam()
+    {
+        //some calculation
+        _NavigationManager.NavigateTo("learnRouting?Param1=Learn&Param2=Blazor");
+    }
+
+    protected override void OnInitialized()
+    {
+        //_NavigationManager.Refresh(forceReload: true);  
+        LoadParameters();
+    }
+
+    }

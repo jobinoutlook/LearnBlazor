@@ -1,6 +1,9 @@
 ﻿@page "/Learn_Blazor/parentComponent"
 
+@inject NavigationManager _NavigationManager
+
 <h3>ParentComponent</h3>
+
 
 <CascadingValue Value="messageForGrandChild" Name="Message">
     <CascadingValue Value="luckyNumber" Name="Number">
@@ -20,7 +23,7 @@
 
 <p>@messageText</p>
 
-
+<p><button @onclick="NavigateToQueryParam" class="btn btn-primary">Navigate to Query parameter</button></p>
 
 @code {
     public string messageText = string.Empty;
@@ -32,6 +35,12 @@
     private void ShowMessage()
     {
         messageText = "Button inside child component was clicked";
+    }
+
+    private void NavigateToQueryParam()
+    {
+        //some calculation
+        _NavigationManager.NavigateTo("learnRouting?Param1=Learn&Param2=Blazor");
     }
 
 }
