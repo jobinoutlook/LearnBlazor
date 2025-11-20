@@ -8,3 +8,24 @@
         toastr.error(message);
     }
 }
+
+window.ShowSwal = function (type, message) {
+
+    if (type == "success") {
+
+        Swal.fire({
+            title: "Good job!",
+            text: message,
+            icon: "success"
+        });
+    }
+    else if (type == "error") {
+
+        Swal.fire({
+            title: 'Task Failed!',
+            text: message,
+            icon: 'error',
+
+        });
+    }
+}

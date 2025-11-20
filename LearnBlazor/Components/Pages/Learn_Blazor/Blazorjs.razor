@@ -22,7 +22,12 @@
 
 <div class="row">
     <button class="btn btn-success m-2" style="width:auto" @onclick="ToastrSuccess">Toastr Success</button>
-    <button class="btn btn-danger m-2" style="width:auto" @onclick="ToastrError">Toastr Success</button>
+    <button class="btn btn-danger m-2" style="width:auto" @onclick="ToastrError">Toastr Failure</button>
+</div>
+
+<div class="row">
+    <button class="btn btn-success m-2" style="width:auto" @onclick="SweetalertSuccess">Sweetalert Success</button>
+    <button class="btn btn-danger m-2" style="width:auto" @onclick="SweetalertError">Sweetalert Failure</button>
 </div>
 
 @code {
@@ -33,8 +38,10 @@
 
     private async Task TestConfirmBox()
     {
-        ConfirmResult = await _JSRuntime.InvokeAsync<bool>("confirm", ConfirmMesssage);
+        //ConfirmResult = await _JSRuntime.InvokeAsync<bool>("confirm", ConfirmMesssage);
+        ConfirmResult = await _JSRuntime.ConfirmBox(ConfirmMesssage);
     }
+    //------
 
     private async Task ToastrSuccess()
     {
@@ -47,4 +54,17 @@
         //await _JSRuntime.InvokeVoidAsync("showToastr", "error", "Error Notification");
         await _JSRuntime.ToastrError("Error Notification");
     }
+    //---------
+    private async Task SweetalertSuccess()
+    {
+        //await _JSRuntime.InvokeVoidAsync("showToastr","success","Success Notification");
+        await _JSRuntime.SwalSuccess("Success Notification");
+    }
+
+    private async Task SweetalertError()
+    {
+        //await _JSRuntime.InvokeVoidAsync("showToastr", "error", "Error Notification");
+        await _JSRuntime.SwalError("Error Notification");
+    }
+
 }
