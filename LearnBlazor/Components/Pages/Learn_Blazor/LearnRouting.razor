@@ -63,6 +63,8 @@
             if (query.Count > 1)
                 Param2 = query["Param2"];
         }
+
+        //_NavigationManager.Refresh(forceReload: true);
     }
 
     private void NavigateToQueryParam()
@@ -73,7 +75,7 @@
 
     protected override void OnInitialized()
     {
-        //_NavigationManager.Refresh(forceReload: true);  
+        
         LoadParameters();
     }
 
